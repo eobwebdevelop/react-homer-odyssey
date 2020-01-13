@@ -1,4 +1,5 @@
 const express = require('express');
+//db file in on gitignore
 const connection = require('./../../helpers/db');
 const router = express.Router();
 
