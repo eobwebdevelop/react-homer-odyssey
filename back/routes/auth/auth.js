@@ -11,8 +11,13 @@ router.post('/signup', function(req, res, next) {
    console.log("userValue",userValue);
    connection.query(insertValues,[userValue.email, userValue.password, userValue.name, userValue.lastname], (error, results, fields) => {       
   
-    if(error) res.status(500).end();
-      res.send('User added!'); 
+    // if(error) res.status(500).end();
+    //   res.send('User added!'); 
+
+    if (error)
+        res.status(500).json({ flash:  error.message });
+    else
+        res.status(200).json({ flash:  "User has been signed up!" });
     
    })
 });
