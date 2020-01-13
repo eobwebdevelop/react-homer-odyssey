@@ -1,8 +1,7 @@
 const express = require('express');
 const connection = require('./../../helpers/db');
+//The db file with the config data is in git ignore
 const router = express.Router();
-
-
 
 router.post('/signup', function(req, res, next) {
    const insertValues = `INSERT INTO users (email, password, name, lastname) VALUES (?,?,?,?)`;
