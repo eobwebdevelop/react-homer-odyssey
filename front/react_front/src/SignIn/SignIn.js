@@ -5,14 +5,12 @@ import {Link} from 'react-router-dom';
 
 
 
-class SignUp extends Component {
+class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "mon@email.com",
       password: "monPassw0rd",
-      name: "James",
-      lastname: "Bond",
       flash: "",
       isSnackOpen: false
     }
@@ -25,13 +23,6 @@ class SignUp extends Component {
   updatePasswordField = (event) => {
     this.setState({password:event.target.value}) 
   }
-  updateNameField = (event) => {
-    this.setState({name:event.target.value}) 
-  }
-  updateLastnameField = (event) => {
-    this.setState({lastname:event.target.value}) 
-  }
-
   handleSnackOpen = () => {
     this.setState({isSnackOpen: true})
   }
@@ -43,7 +34,7 @@ class SignUp extends Component {
   handlerSubmit = (e) => {
     e.preventDefault();
     console.log("the form has been submited with these fields:", this.state );
-    fetch("/auth/signup",
+    fetch("/auth/signin",
     {
         method:  'POST',
         headers:  new Headers({
@@ -65,21 +56,17 @@ class SignUp extends Component {
     <div> 
         <form onSubmit={this.handlerSubmit}>
           <h1>{JSON.stringify(this.state,1,1)}</h1>
-          <Link to="/signin">
-            <Button variant="contained"  type="submit" color="primary" onClick = {this.handleSnackOpen}>Go to Sign In</Button>
-          </Link>  
-          <br/><br/>
-          <TextField type="text" id="name" placeholder="name" onChange = {this.updateNameField}/>
-          <br/>
-          <TextField type="text" id="lastname" placeholder="lastname" onChange = {this.updateLastnameField}/>
-          <br/>
+          <Link to="/signup">
+            <Button variant="contained"  type="submit" color="primary" onClick = {this.handleSnackOpen}>Go to Sign Up</Button>
+          </Link>   
+          <br/><br/>    
           <TextField type="email" placeholder="email" id="email" onChange = {this.updateEmailField} />
           <br/>
           <TextField type="password" id="password" placeholder="password" onChange = {this.updatePasswordField}/>
           <br/>
           <TextField type="password" id="passwordConf" placeholder="password confirmation" />
           <br/> <br/>
-          <Link to="/">
+          <Link to="/profile">
             <Button variant="contained"  type="submit" color="primary" onClick = {this.handleSnackOpen}>Submit</Button>
           </Link> 
           <Snackbar
@@ -94,4 +81,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default SignIn;
