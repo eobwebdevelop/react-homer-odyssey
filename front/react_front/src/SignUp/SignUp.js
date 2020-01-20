@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {Button,TextField, Snackbar} from '@material-ui/core/';
+
+
 
 class SignUp extends Component {
   constructor(props) {
@@ -9,7 +12,7 @@ class SignUp extends Component {
       name: "James",
       lastname: "Bond",
       flash: "",
-
+      isSnackOpen: false
     }
   } 
 
@@ -25,6 +28,13 @@ class SignUp extends Component {
   }
   updateLastnameField = (event) => {
     this.setState({lastname:event.target.value}) 
+  }
+
+  handleSnackOpen = () => {
+    this.setState({isSnackOpen: true})
+  }
+  halderSnackClose = () => {
+    this.setState({isSnackOpen: false})
   }
 
 
@@ -45,7 +55,6 @@ class SignUp extends Component {
         err  =>  this.setState({"flash":  err.flash})
     )
   }
-
   
 
 
@@ -54,18 +63,23 @@ class SignUp extends Component {
     <div> 
         <form onSubmit={this.handlerSubmit}>
           <h1>{JSON.stringify(this.state,1,1)}</h1>
-          <input type="text" id="name" placeholder="name" onChange = {this.updateNameField}/>
+          <TextField type="text" id="name" placeholder="name" onChange = {this.updateNameField}/>
           <br/>
-          <input type="text" id="lastname" placeholder="lastname" onChange = {this.updateLastnameField}/>
+          <TextField type="text" id="lastname" placeholder="lastname" onChange = {this.updateLastnameField}/>
           <br/>
-          <input type="email" placeholder="email" id="email" onChange = {this.updateEmailField} />
+          <TextField type="email" placeholder="email" id="email" onChange = {this.updateEmailField} />
           <br/>
-          <input type="password" id="password" placeholder="password" onChange = {this.updatePasswordField}/>
+          <TextField type="password" id="password" placeholder="password" onChange = {this.updatePasswordField}/>
           <br/>
-          <input type="password" id="passwordConf" placeholder="password confirmation" />
+          <TextField type="password" id="passwordConf" placeholder="password confirmation" />
           <br/> <br/>
-          <input type="submit" value="Submit"/> 
-
+          <Button variant="contained"  type="submit" color="primary" onClick = {this.handleSnackOpen}>Submit</Button>
+          <Snackbar
+            open={this.state.isSnackOpen}
+            autoHideDuration={40000}
+            onClose={this.halderSnackClose}
+            message={this.state.flash}
+          />
         </form>
     </div>
     );
